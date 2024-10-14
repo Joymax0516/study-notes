@@ -54,13 +54,24 @@ namespace demo125socket
      //绑定我们的网络节点： 网络节点： ip+端口
      socketWatch.Bind(iPEndPoint);
      socketWatch.Listen(10);
-     MessageBox.Show("启动成功");
-     //创建一个负责监听的socket，来接口我们客户端的连接 创建和我们客户端进行通信的socket
-     socketWatch.Accept
+     ShowMsg("启动成功");
+     
+     //创建一个负责监听的socket，来接受我们客户端的连接 创建和我们客户端进行通信的socket
+     Socket socketSend = socketWatch.Accept(); //Accept
+     
+     ShowMsg("监听成功");
+     
+     Thread th = new Thread(Listen(socketWatch));
+     th.Start(socketWatch);
    }
    void ShowMsg(string str)
    {
       txtMsg.AppendText(str);
+   }
+   void Listen(object o)
+   {
+     Socket socketWatch = o as Scoket;
+     ShowMsg("监听成功");
    }
 }
 ```
@@ -69,8 +80,11 @@ namespace demo125socket
 
 
 
+Tcp/udp
 
+tcp三次握手，执行效率比较低
 
+udp是不安全的协议，但是使用起来很快，不稳定，很容易数据丢失
 
 
 
